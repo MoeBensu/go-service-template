@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"flag"
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -9,9 +11,23 @@ import (
 
 	"yourproject/config"
 	"yourproject/internal/app"
+	"yourproject/pkg/version"
 )
 
 func main() {
+	// Define flags
+	versionFlag := flag.Bool("version", false, "Print version information")
+	flag.Parse()
+
+	// Handle version flag
+	if *versionFlag {
+		info := version.Get()
+		fmt.Printf("Version:\t%s\n", info.Version)
+		fmt.Printf("Commit:\t\t%s\n", info.CommitSHA)
+		fmt.Printf("Build Time:\t%s\n", info.BuildTime)
+		os.Exit(0)
+	}
+
 	// Load configuration
 	cfg, err := config.Load()
 	if err != nil {
