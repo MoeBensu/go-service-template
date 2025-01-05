@@ -9,6 +9,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
+	"yourproject/config"
 	"yourproject/internal/handler"
 	"yourproject/internal/service"
 	"yourproject/pkg/logger"
@@ -19,14 +20,7 @@ type Server struct {
 	logger *logger.Logger
 }
 
-type ServerConfig struct {
-	Host         string
-	Port         int
-	ReadTimeout  time.Duration
-	WriteTimeout time.Duration
-}
-
-func New(cfg ServerConfig, svc *service.Service, logger *logger.Logger) *Server {
+func New(cfg config.ServerConfig, svc *service.Service, logger *logger.Logger) *Server {
 	r := chi.NewRouter()
 
 	// Middleware

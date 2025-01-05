@@ -35,8 +35,7 @@ func New(ctx context.Context, cfg *config.Config) (*App, error) {
 
 	svc := service.New(repo, log)
 
-	serverCfg := server.ServerConfig(cfg.Server)
-	srv := server.New(serverCfg, svc, log)
+	srv := server.New(cfg.Server, svc, log)
 
 	return &App{
 		cfg:    cfg,
